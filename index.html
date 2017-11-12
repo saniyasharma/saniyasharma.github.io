@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<!-- your webpage info goes here -->
+
+    <title>IRE_MAJOR_PROJECT</title>
+	
+	<meta name="author" content="GROUP 26" />
+	<meta name="description" content="" />
+
+<!-- you should always add your stylesheet (css) in the head tag so that it starts loading before the page html is being displayed -->	
+	<link rel="stylesheet" href="style.css" type="text/css" />
+	
+</head>
+<body>
+<!-- background-color: lightblue; -->
+
+<!-- webpage content goes here in the body -->
+
+	<div id="page">
+	<h1 align="middle">Neural Summarization by Extracting Sentences</h1>
+		<!-- <div id="logo">
+			<h1><a href="/" id="logoLink"></a></h1>
+		</div> -->
+		
+		<div id="content">
+		   
+			<!-- <h2 align="middle" color="black"></h2> -->
+			<p>
+			<h2>Abstract</h2>
+			Traditional approaches to extractive summarization  rely  heavily  on  human-engineered
+			features.We  develop a data-driven frame-work for single-document summarization compose
+			of   a   hierarchical   document encoder and an attention-based extractor.We train  our  models  on  large  scale  corporacontaining   hundreds   of   thousands   of document-summary pairs.  Experimental results   on   two   summarization   datasets demonstrate that our models obtain results comparable to the state of the art without
+			any access to linguistic annotation.
+			</p>
+			<h2>Introduction</h2>
+			The need to digest large amounts of textual data has increased the demand of automatic summarization systems aiming to create shorter versions of one or more documents, whilst preserving their information content.
+
+The idea of creating a summary by extracting words from the source document was pioneered in Banko et al. (2000) who view summarization as a problem analogous to statistical machine translation and generate headlines using statistical models for selecting and ordering the summary words.
+
+Our model includes a neural network-based hierarchical document reader or encoder and an attention-based content extractor. The role of the reader is to derive the meaning representation of a document based on its sentences and their constituent words. Our models adopt a variant of neural attention to extract sentences or words.
+</br></br>
+			<h2>Problem Statement</h2>
+			Given a document D consisting of a sequence of sentences (s1,...,sm) and a word set (w1,...,wn), we are interested in obtaining summaries. Sentence extraction aims to create a summary from D by selecting a subset of j sentences (where j < m). We do this by scoring each sentence within D and predicting a label yL { 0,1 }  indicating whether the sentence should be included in the summary. As we apply supervised training, the objective is to maximize the likelihood of all sentence labels  yL = (y1L, . . . ymL )  given the input document D and model parameters theta
+			<h2>Training Data for Summarization</h2>
+			Data-driven neural summarization models require a large training corpus of documents with labels indicating which sentences (or words) should be in  the  summary. Until  now  such  corpora  have been  limited  to  hundreds  of  examples . To  overcome  the  paucity  of
+annotated data for training  we create dataset for sentence extraction .We retrieved
+hundreds of thousands  of  news  articles  and  their  correspondinghighlights from DailyMail.The highlights (created by news editors) are genuinely abstractive summaries and therefore not readily suited to supervised training To create the training data forsentence extraction, we reverse  approximated  the gold  standard  label  of each document sentence given the summary based on their semantic correspondence.
+</br></br>
+             <h2>Neural Summarization Model</h2>
+             The key components of our summarization model include a NN based hierarchical document reader and an attention-based hierarchical content extractor.The hierarchical nature of our model reflects the intuition that documents are generated compositionally from words, sentences, paragraphs, or even larger units.
+
+           <div id="content1">
+             <div class="col">
+               <img src="irereport.png" height="350" width="450"/ >
+             </div>
+
+           </div>
+			<p> <h3><u>Document Reader</u></h3>
+
+			The role of the reader is to derive the meaning representation of the document
+			from its constituent sentences, each of which is treated as a sequence of words.
+			To obtain vector representation of sentences we use CNN with a max-over-time
+			pooling operation.Then we build representations for documents using a standard
+			recurrent neural network(RNN) that recursively composes sentences.</br>
+			  <div id="content1">
+			<!-- <div class="col">
+               <img src="/home/saniya/iiith_2sem/Lab3/Dharmrajeshwar.JPG" height="42" width="42" />
+             </div>	 -->
+		
+			<p> <h4>Convolutional Sentence Encoder</h4>
+			Let d denote the dimension of word
+			embeddings, and s a document sentence consisting a sequence of words (w 1 , ....w n )
+			which can be represented by a dense column matrix. We apply a
+			temporal narrow convolution between W and a kernel K. We use kernels of
+			width two and three and each six filters for each kernel.
+			</p>
+			</div>
+			<p> <h4>Recurrent Document Encoder</h4>
+		    At the document level, a recurrent neural network composes a sequence of sentence vectors into a document vector.The RNN we used has a Long Short-Term Memory (LSTM) activation unit for ameliorating the vanishing gradient problem when training long sequences
+		  </br>
+		  <p> <h3><u>Sentence Extractor</u></h3>
+		  	An attention mechanism is used as an intermediate step to decide which input region to focus on in order to generate the next output. In contrast, our sentence extractor applies attention to directly extract salient sentences after reading them.The extractor is another recurrent neural network that labels sentences sequentially, taking into account not only whether they are individually relevant but also mutually redundant.
+		
+			</br></br>
+           
+          <h2>Conclusion</h2>
+           Two important ideas behind our work are  the  creation  of  hierarchical  neural  structures that  reflect  the  nature  of  the  summarization  task and generation by extraction. The later effectively enables us to sidestep the difficulties of generating under a large vocabulary, essentially covering the entire dataset, with many low-frequency words and named entities.Directions  for  future  work  are  many  and  varied. Another direction would be to adopt an information theoretic perspective and devise a purely unsupervised approach that selects summary sentences and words so as to minimize information loss, a task possibly achievable with the dataset created in this work.
+          
+		</div>
+
+		<div id="footer">
+			<p>
+				Webpage made by <a href="/" target="_blank">[Saniya Sharma]</a>
+			</p>
+		</div>
+	</div>
+</body>
+</html>
